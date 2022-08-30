@@ -1,42 +1,44 @@
-let produitId = function(){
+let produitId = function () {
     return new URL(location.href).searchParams.get("id");
-};
+};   // On recup l'id des canap avec search qui renvoit les url de locationhref pour recup les bonnes url puis on chope l'id
+
 const productId = produitId();
-  
-fetch(`http://localhost:3000/api/products/${productId}`)
+// on dit donc que l'id recup et égal a l'id de la variable product id , oui tu vois ou je veux en venir 
 
-    .then(function(response){
-       // console.log(response);
-        return response.json();
-      
-}).catch(function(error){
+fetch(`http://localhost:3000/api/products/${productId}`) // on fetch du coup l'url avec la variable productid qui sera bien la bonne vu ce qu'on a fait au dessus ! clever ! 
 
-    // let productNotFound = document.querySelector(".item");
-    // productNotFound.innerHTML = "<p>Erreur, le produit n'a pas été trouvé, faut encore définir les prods dans la page avec leurs éléments et tout<p>";
-   alert(`produit pas fini d'etre mis dans la page`);
-})
+    .then(function (response) {  
+        console.log(response);
+        return response.json();   // on recup les infos en json, comme sur la page script on commence à s'y connaitre un peu à ce point
+    })
 
- .then(function(product){
-console.log(product);})
+    .then(function (product) {
+        elementDesProduits (product); // le beau produit est là ! on console log et bim les infos du produit, puis qu'a les dispatch aux bons endroits
+        console.log(product);  // ça fonctionne, et ça fait du bien ! 
+    })
+        
 
+     let elementDesProduits = function(product) {  // les elem des produits on les dispatch
+            document.querySelector(".item__img").innerHTML += `<img src="${product.imageUrl}" alt="${product.altTxt}">`;
+            // l'img avec la ligne html  dans producthtml merci ! 
+            document.getElementById("title").innerText += `${product.name}`;
+            // le nom on select l'id c'est cool 
+            document.getElementById("price").innerText += `${product.price}`;
+            // meme combat avec le prix et son id 
+            document.getElementById("description").innerText += `${product.description}`;
+            // tu l'as vu venir ? meme chose encore une fois !
+            document.querySelector("#colors").innerText += `${product.colors}`;
+            // les couleurs toujours pas avec getbyid et query vu qu'il y en a plusieurs doit y avoir un truc à faire, à voir !
 
-    //document.querySelector("title").textContent += product.name;// je dois définir le produit avant de pouvoir rajouter son nom !
- //mettre les autres éléments à modifier dans la page !
- let product = function(product){
-document.getElementsByClassName("item__img").innerHTML += `<img src="${product.imageUrl}" alt="${product.altTxt}">`;
-document.getElementById("title").innerText += `${product.name}`;
-document.getElementById("price").innerText += `${product.price}`;
-document.getElementById("description").innerText += `${product.description}`;
-document.getElementById("colors").innerText += `${product.colors}`;
+      }
 
-}
-
-
-
-
+   
 
 
 
 
 
-  
+
+
+
+
