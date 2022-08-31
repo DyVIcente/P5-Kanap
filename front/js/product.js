@@ -27,9 +27,14 @@ fetch(`http://localhost:3000/api/products/${productId}`) // on fetch du coup l'u
             // meme combat avec le prix et son id 
             document.getElementById("description").innerText += `${product.description}`;
             // tu l'as vu venir ? meme chose encore une fois !
-            document.querySelector("#colors").innerText += `${product.colors}`;
+            
             // les couleurs toujours pas avec getbyid et query vu qu'il y en a plusieurs doit y avoir un truc à faire, à voir !
             document.querySelector('title').innerText = `${product.name}`;
+
+            for(let color of product.colors){
+            let i = 0; i < product.colors.length; i++;
+            document.getElementById("colors").innerText += `${product.colors}`;
+            }
       }
 
    
