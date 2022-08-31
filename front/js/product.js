@@ -29,7 +29,7 @@ fetch(`http://localhost:3000/api/products/${productId}`) // on fetch du coup l'u
             // tu l'as vu venir ? meme chose encore une fois !
             document.querySelector("#colors").innerText += `${product.colors}`;
             // les couleurs toujours pas avec getbyid et query vu qu'il y en a plusieurs doit y avoir un truc à faire, à voir !
-
+            document.querySelector('title').innerText = `${product.name}`;
       }
 
    
