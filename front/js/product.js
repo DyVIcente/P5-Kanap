@@ -14,7 +14,8 @@ fetch(`http://localhost:3000/api/products/${productId}`) // on fetch du coup l'u
 
     .then(function (product) {
         elementDesProduits (product); // le beau produit est là ! on console log et bim les infos du produit, puis qu'a les dispatch aux bons endroits
-        console.log(product);  // ça fonctionne, et ça fait du bien ! 
+        console.log(product);
+        ajouterPanier(); // ça fonctionne, et ça fait du bien ! 
     })
 
     .catch(function(error) {
@@ -66,15 +67,49 @@ fetch(`http://localhost:3000/api/products/${productId}`) // on fetch du coup l'u
                     quantity:(document.querySelector("#quantity").value), 
                     color: colorKanap.value,
                     
-            };  // On recup les trois valeurs id quantité et couleur demandé dasn étapes clés !
+            };
+                
+                console.log(productAjoutés);  // On recup les trois valeurs id quantité et couleur demandé dasn étapes clés !
             
-            console.log();(productAjoutés);
+            
                // au début javais fait un log sur chaque click sur la page, mais maintenant que je veux cibler #addToCart j'ai R ! 
                 
         }
                 else{
-                    alert("oupsi doupsi")
+                    alert("Sélectionnez un nombre de Canapé ! ")
                 }
-    })
-    
+ 
+
+
+
+// on centralise le code de la gesiton du panier dans une class !
+class Cart {
+    constructor(){
+        this.items = JSON.parse(localStorage.getItem("cart")) ?? []
+    }        
+
+
+save(){
+    localStorage.setItem("cart", JSON.stringify(this.items))
+}
+
+addToCart(productAjoutés) { 
+    const cartItem = 
+    this.items.find(i => i._id === productAjoutés._id && i.color === productAjoutés.color)
+
+    if (cartItem){
+        cartItem.quantity += productAjoutés.quantity
+        //console.log("Quantité supplémentaire dans le panier.");
     }
+    else{
+        this.items.push(productAjoutés)
+       // console.log("Le produit a été ajouté au panier");
+    }
+    this.save();
+}
+}   })
+}
+
+
+
+    
