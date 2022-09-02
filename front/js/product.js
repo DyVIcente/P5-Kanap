@@ -80,35 +80,48 @@ fetch(`http://localhost:3000/api/products/${productId}`) // on fetch du coup l'u
                 }
  
 
+   /**** Gestion du localStorage ****/
 
+      // Récupération des données du localStorage
+      class Cart {
+        constructor(){}
+      existingCart = JSON.parse(localStorage.getItem("cart"));
+      }
+      // Si le localStorage existe
+     
+      if (Cart.existingCart) {
+        console.log("Il y a déjà un produit dans le panier, on compare les données");
 
-// on centralise le code de la gesiton du panier dans une class !
-class Cart {
-    constructor(){
-        this.items = JSON.parse(localStorage.getItem("cart")) ?? []
-    }        
+        // On recherche avec la méthode find() si l'id et la couleur d'un article sont déjà présents
+        let item = Cart.existingCart.find( 
+            (item) => 
+            item._id === productAjoutés._id && item.color === productAjoutés.color
+            );
 
+        // Si oui, on incrémente la nouvelle quantité 
+        if (item) {
+          item.quantity = item.quantity + productAjoutés.quantity;
+          localStorage.setItem("cart", JSON.stringify(existingCart));
+          console.log("Quantité supplémentaire dans le panier.");
+          return;
+        }
 
-save(){
-    localStorage.setItem("cart", JSON.stringify(this.items))
-}
+        // Si non, alors on push le nouvel article sélectionné
+        Cart.existingCart.push(productAjoutés);
+        localStorage.setItem("cart", JSON.stringify(Cart.existingCart));
+        console.log("Le produit a été ajouté au panier");
 
-addToCart(productAjoutés) { 
-    const cartItem = 
-    this.items.find(i => i._id === productAjoutés._id && i.color === productAjoutés.color)
-
-    if (cartItem){
-        cartItem.quantity += productAjoutés.quantity
-        //console.log("Quantité supplémentaire dans le panier.");
+      } else {
+        // Sinon création d'un tableau dans le lequel on push l'objet "productAjoutés"
+        let createLocalStorage = [];
+        createLocalStorage.push(ajouterPanier);
+        localStorage.setItem("cart", JSON.stringify(createLocalStorage));
+        console.log("Le panier est vide, on ajoute le premier produit");
+      }
     }
-    else{
-        this.items.push(productAjoutés)
-       // console.log("Le produit a été ajouté au panier");
-    }
-    this.save();
-}
-}   })
-}
+        )};
+;
+
 
 
 
