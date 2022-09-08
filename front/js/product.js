@@ -74,53 +74,33 @@ let ajouterPanier = function () {
 
 
 
-            // Gestion du localStorage
-            class Cart {
-                constructor() {
-                   let existingCart = JSON.parse(localStorage.getItem("cart"));  // récupération des données 
-                
-                    console.log(existingCart);
 
-                    if (existingCart === null) {
-                        existingCart = []
-                    }
+            let productsLS = JSON.parse(localStorage.getItem("produit")); // productsLS est les produits recup dans le Localsotrage
 
+
+            if (productsLS) {   // si productsLS  est déjà présent avec la meme id et meme couleur 
+                const cartItem = productsLS.find((i) => i._id === productId && i.color === colorKanap.value);
+
+                if (cartItem) {
+                    let newQuantity = parseInt(productAjoutés.quantity) + parseInt(cartItem.quantity); //parseInt en ajoutant les quantité pour pas qu'elles se mettent à la suite mais qu'elles s'ajoutent
+                    cartItem.quantity = newQuantity;
+                    localStorage.setItem("produit", JSON.stringify(productsLS)); // on store dans produit la nouvelle quantité
+                    console.table(productsLS);
+
+                    
+                } else {
+                    productsLS.push(productAjoutés); //Si le produit n'est pas déjà présent on ajoute les éléments à la fin du tableau 
+                    localStorage.setItem("produit", JSON.stringify(productsLS)); // et on store à la suite 
+                    console.table(productsLS);
                 }
 
+            } else {
+                productsLS = []; // si le panier est vide on crée un tableau 
+                productsLS.push(productAjoutés); // on ajoute les éléments dans le tableau à la suite 
+                localStorage.setItem("produit", JSON.stringify(productsLS)); // et on store dans le localstorage
+                console.table(productsLS);
 
-                save() {
-                    localStorage.setItem("cart", JSON.stringify(existingCart))   // on save et ajoute avec clé cart et valeur en json en texte
-                }
-
-
-
-                addToCart(item) {
-                    const cartItem = existingCart.find((item) => item._id === productAjoutés._id && item.color === productAjoutés.color)
-                    //find renvoi la valeur du premier élément trouvé qui respecte la condition
-                    //ici, si le produit à la même id et même couleur : 
-
-                    if (cartItem) {
-                        item.quantity += productAjoutés.quantity   // on ajoute a la quantité
-                        //console.log("Quantité supplémentaire dans le panier.");
-                    }
-                    else {
-                        item.products.push(productAjoutés)   // sinon on push ( ajoute a la suite du tableau)
-                        // console.log("Le produit a été ajouté au panier");
-                    }
-
-                    this.save();
-                  
-                   // pour finir on save  ?
-                }
-                
-           
             }
         }
-    }
-    );
+    });
 }
-
-
-
-
-

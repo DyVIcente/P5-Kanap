@@ -1,24 +1,20 @@
 
-let productsLS = JSON.parse(localStorage.getItem("cart"));
-console.log(productsLS);
+let productsLS = JSON.parse(localStorage.getItem("produit"));
+console.table(productsLS);
 
-main();
-function main(){
-    displayCart();
-}
-
+// Si le panier est vide
 function displayCart() {
-
-    if (productsLS === null || productsLS == 0) {  // si products est null ou égale à 0 
-        console.log("cart vide");
+    if (productsLS === null || productsLS == 0) {
+        console.log("Panier vide");
     } else {
-        //  console.log("cart products présent");
 
-        for (let products in productsLS) { // Boucler sur les produits du panier
+        for (let produit in productsLS) { // Boucler sur les produits du panier
 
             let produitArticle = document.createElement("article");
             document.querySelector("#cart__items").appendChild(produitArticle);   //article  <article class="cart__item" data-id="{product-ID}" data-color="{product-color}">
-            produitArticle.classList.add("cart__item");                            // chercher pour ajouter dataid et datacolor
+            produitArticle.classList.add("cart__item");
+            produitArticle.setAttribute('data-id', productsLS[produit]._id);
+            produitArticle.setAttribute('data-color', productsLS[produit].color)                 // chercher pour ajouter dataid et datacolor
 
             let divImgage = document.createElement("div");      // div <div class="cart__item__img">
             produitArticle.appendChild(divImgage);
@@ -27,8 +23,8 @@ function displayCart() {
 
             let image = document.createElement("img");
             divImgage.appendChild(image);
-            image.src = productsLS[products].product.imageUrl;    //<img src="../images/product01.jpg" alt="Photographie d'un canapé">
-            image.alt = productsLS[products].product.altTxt;
+            image.src = productsLS[produit].imageUrl;    //<img src="../images/product01.jpg" alt="Photographie d'un canapé">
+            image.alt = productsLS[produit].altTxt;
 
 
             let carItemContent = document.createElement("div");   //<div class="cart__item__content">
@@ -41,15 +37,15 @@ function displayCart() {
 
             let itemTitle = document.createElement("h2");   // <h2>Nom du produit</h2>
             carItemContentDesp.appendChild(itemTitle);
-            itemTitle.innerHTML = productsLS[products].product.name;
+            itemTitle.innerHTML = productsLS[produit].name;
 
             let itemColor = document.createElement("p"); // <p>Vert</p>
             itemTitle.appendChild(itemColor);
-            itemColor.innerHTML = productsLS[products].product.color;
+            itemColor.innerHTML = productsLS[produit].color;
 
             let itemPrice = document.createElement("p"); //  <p>42,00 €</p>
             itemTitle.appendChild(itemPrice);
-            itemPrice.innerHTML = productsLS[products].product.price;
+            itemPrice.innerHTML = productsLS[produit].price;
 
             let cartItemSetting = document.createElement("div"); //<div class="cart__item__content__settings">
             carItemContent.appendChild(cartItemSetting);
@@ -78,9 +74,9 @@ function displayCart() {
         }
 
     }
-
-
 }
+
+displayCart();
 
 
 
