@@ -1,5 +1,5 @@
 
-let productsLS = JSON.parse(localStorage.getItem("prod"));
+let productsLS = JSON.parse(localStorage.getItem("cart"));
 console.log(productsLS);
 
 main();
@@ -14,7 +14,7 @@ function displayCart() {
     } else {
         //  console.log("cart products présent");
 
-        for (let prod in productsLS) { // Boucler sur les produits du panier
+        for (let products in productsLS) { // Boucler sur les produits du panier
 
             let produitArticle = document.createElement("article");
             document.querySelector("#cart__items").appendChild(produitArticle);   //article  <article class="cart__item" data-id="{product-ID}" data-color="{product-color}">
@@ -27,8 +27,8 @@ function displayCart() {
 
             let image = document.createElement("img");
             divImgage.appendChild(image);
-            image.src = productsLS[prod].product.imageUrl;    //<img src="../images/product01.jpg" alt="Photographie d'un canapé">
-            image.alt = productsLS[prod].product.altTxt;
+            image.src = productsLS[products].product.imageUrl;    //<img src="../images/product01.jpg" alt="Photographie d'un canapé">
+            image.alt = productsLS[products].product.altTxt;
 
 
             let carItemContent = document.createElement("div");   //<div class="cart__item__content">
@@ -41,15 +41,15 @@ function displayCart() {
 
             let itemTitle = document.createElement("h2");   // <h2>Nom du produit</h2>
             carItemContentDesp.appendChild(itemTitle);
-            itemTitle.innerHTML = productsLS[prod].product.name;
+            itemTitle.innerHTML = productsLS[products].product.name;
 
             let itemColor = document.createElement("p"); // <p>Vert</p>
             itemTitle.appendChild(itemColor);
-            itemColor.innerHTML = productsLS[prod].product.color;
+            itemColor.innerHTML = productsLS[products].product.color;
 
             let itemPrice = document.createElement("p"); //  <p>42,00 €</p>
             itemTitle.appendChild(itemPrice);
-            itemPrice.innerHTML = productsLS[prod].product.price;
+            itemPrice.innerHTML = productsLS[products].product.price;
 
             let cartItemSetting = document.createElement("div"); //<div class="cart__item__content__settings">
             carItemContent.appendChild(cartItemSetting);

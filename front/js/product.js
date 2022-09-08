@@ -77,44 +77,50 @@ let ajouterPanier = function () {
             // Gestion du localStorage
             class Cart {
                 constructor() {
-                    this.products = JSON.parse(localStorage.getItem("cart"));  // récupération des données 
+                   let existingCart = JSON.parse(localStorage.getItem("cart"));  // récupération des données 
+                
+                    console.log(existingCart);
 
-
-                    if (this.products === null) {
-                        this.products = []
+                    if (existingCart === null) {
+                        existingCart = []
                     }
 
                 }
 
 
                 save() {
-                    localStorage.setItem("cart", JSON.stringify(this.products))   // on save et ajoute avec clé cart et valeur en json
+                    localStorage.setItem("cart", JSON.stringify(existingCart))   // on save et ajoute avec clé cart et valeur en json en texte
                 }
 
 
 
-                addToCart(productAjoutés) {
-                    const cartItem = this.products.find(i => i._id === productAjoutés._id && i.color === productAjoutés.color)
+                addToCart(item) {
+                    const cartItem = existingCart.find((item) => item._id === productAjoutés._id && item.color === productAjoutés.color)
                     //find renvoi la valeur du premier élément trouvé qui respecte la condition
                     //ici, si le produit à la même id et même couleur : 
 
                     if (cartItem) {
-                        this.quantity += productAjoutés.quantity   // on ajoute a la quantité
+                        item.quantity += productAjoutés.quantity   // on ajoute a la quantité
                         //console.log("Quantité supplémentaire dans le panier.");
                     }
                     else {
-                        this.products.push(productAjoutés)   // sinon on push ( ajoute a la suite du tableau)
+                        item.products.push(productAjoutés)   // sinon on push ( ajoute a la suite du tableau)
                         // console.log("Le produit a été ajouté au panier");
                     }
 
-                    this.save();   // pour finir on save  ?
+                    this.save();
+                  
+                   // pour finir on save  ?
                 }
-
-
+                
+           
             }
         }
     }
     );
 }
+
+
+
 
 
