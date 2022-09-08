@@ -1,9 +1,6 @@
 
-main();
+getArticles();
 
-function main(){
-  getArticles();
-}
 
 // allo l'API tu m'entends ? si oui, envois les infos en json stp
 function getArticles() {
