@@ -1,7 +1,10 @@
 
 let productsLS = JSON.parse(localStorage.getItem("produit"));
+
 console.table(productsLS);
 
+
+displayCart();
 // Si le panier est vide
 function displayCart() {
     if (productsLS === null || productsLS == 0) {
@@ -11,20 +14,21 @@ function displayCart() {
         for (let produit in productsLS) { // Boucler sur les produits du panier
 
             let produitArticle = document.createElement("article");
-            document.querySelector("#cart__items").appendChild(produitArticle);   //article  <article class="cart__item" data-id="{product-ID}" data-color="{product-color}">
-            produitArticle.classList.add("cart__item");
-            produitArticle.setAttribute('data-id', productsLS[produit]._id);
-            produitArticle.setAttribute('data-color', productsLS[produit].color)                 // chercher pour ajouter dataid et datacolor
+            document.querySelector("#cart__items").appendChild(produitArticle);   //article  <article   
+            produitArticle.classList.add("cart__item"); //class="cart__item"
+            produitArticle.setAttribute('data-id', productsLS[produit]._id); //data-id="{product-ID}"
+            produitArticle.setAttribute('data-color', productsLS[produit].color);     //data-color="{product-color}">    
+
 
             let divImgage = document.createElement("div");      // div <div class="cart__item__img">
             produitArticle.appendChild(divImgage);
             divImgage.classList.add("cart__item__img");
 
 
-            let image = document.createElement("img");
-            divImgage.appendChild(image);
-            image.src = productsLS[produit].imageUrl;    //<img src="../images/product01.jpg" alt="Photographie d'un canapé">
-            image.alt = productsLS[produit].altTxt;
+            let imageItem = document.createElement("img");
+            divImgage.appendChild(imageItem);
+            imageItem.src = productsLS[produit].imageUrl;    //<img src="../images/product01.jpg" alt="Photographie d'un canapé">
+            imageItem.alt = productsLS[produit].altTxt;
 
 
             let carItemContent = document.createElement("div");   //<div class="cart__item__content">
@@ -57,26 +61,32 @@ function displayCart() {
 
             let itemQuantity = document.createElement("p"); // <p>Qté : </p>
             cartItemSettingquantity.appendChild(itemQuantity);
-            // itemQuantity.innerHTML = ?
+            itemQuantity.innerHTML = "<p>Qté : </p>";
 
-            let itemQuantityInput = document.createElement("input"); // <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="42">
+            let itemQuantityInput = document.createElement("input"); // <input      
             cartItemSettingquantity.appendChild(itemQuantityInput);
-            itemQuantityInput.classList.add("itemQuantity");      // ajouter les type name etc;;
+            itemQuantityInput.classList.add("itemQuantity");    //class="itemQuantity"
+            itemQuantityInput.setAttribute("type", "number");   //type="number"
+            itemQuantityInput.setAttribute("name", "itemQuantity");//name="itemQuantity"
+            itemQuantityInput.setAttribute("min", "1"); //min="1"
+            itemQuantityInput.setAttribute("max", "100");//max="100"
+            itemQuantityInput.value = productsLS[produit].quantity;//value= quantité d'item
 
             let itemContentSettingDelete = document.createElement("div"); // <div class="cart__item__content__settings__delete">
             cartItemSetting.appendChild(itemContentSettingDelete);
             itemContentSettingDelete.classList.add("cart__item__content__settings__delete");
 
-            let supprimer = document.createElement("p"); //<p class="deleteItem">Supprimer</p>
-            itemContentSettingDelete.appendChild(supprimer);
-            supprimer.classList.add("deleteItem");
+            let supprimerItem = document.createElement("p"); //<p class="deleteItem">Supprimer</p>
+            itemContentSettingDelete.appendChild(supprimerItem);
+            supprimerItem.classList.add("deleteItem");
+            supprimerItem.innerHTML = "Supprimer";
 
         }
 
-    }
-}
+    }}
 
-displayCart();
+
+
 
 
 
