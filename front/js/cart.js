@@ -3,10 +3,10 @@ let productsLS = JSON.parse(localStorage.getItem("produit"));
 
 console.table(productsLS);
 
-
 displayCart();
+
 // Si le panier est vide
-function displayCart() {
+ function displayCart() {
     if (productsLS === null || productsLS == 0) {
         console.log("Panier vide");
     } else {
@@ -57,7 +57,7 @@ function displayCart() {
 
             let cartItemSettingquantity = document.createElement("div"); //<div class="cart__item__content__settings__quantity">
             cartItemSetting.appendChild(cartItemSettingquantity);
-            cartItemSettingDelete.classList.add("cart__item__content__settings__quantity");
+            cartItemSettingquantity.classList.add("cart__item__content__settings__quantity");
 
             let itemQuantity = document.createElement("p"); // <p>Qté : </p>
             cartItemSettingquantity.appendChild(itemQuantity);
