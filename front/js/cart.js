@@ -49,7 +49,7 @@ displayCart();
 
             let itemPrice = document.createElement("p"); //  <p>42,00 €</p>
             itemTitle.appendChild(itemPrice);
-            itemPrice.innerHTML = productsLS[produit].price;
+            itemPrice.innerHTML = productsLS[produit].price + " euros";
 
             let cartItemSetting = document.createElement("div"); //<div class="cart__item__content__settings">
             carItemContent.appendChild(cartItemSetting);
