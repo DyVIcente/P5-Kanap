@@ -75,8 +75,7 @@ let ajouterPanier = function (product) {
                 altTxt: product.altTxt,
                 name: product.name,
                 price: product.price,
-                description: parseInt(quantityKanap.value, 10),
-
+                
 
             };
 

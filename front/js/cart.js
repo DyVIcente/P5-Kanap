@@ -6,7 +6,7 @@ console.table(productsLS);
 displayCart();
 
 // Si le panier est vide
- function displayCart() {
+function displayCart() {
     if (productsLS === null || productsLS == 0) {
         console.log("Panier vide");
     } else {
@@ -83,13 +83,45 @@ displayCart();
 
         }
 
-    }}
+    }
+}
+
+
+// quantité total et prix total des produits 
+
+
+
+function quantiteTotal() {
+
+    
+
+    let lenghtItem = productsLS.length;
+     totalBase = 0; // on definit le total de base à 0 pour pouvoir ajouter 
+     totalPrix = 0;
+
+
+    for (let i = 0; i < lenghtItem; i++) {  // boucle pour ajouter la quanité et le prix * quantité
+        totalBase += productsLS[i].value;
+        totalPrix += (productsLS[i].value * productsLS[i].price)
+    }
+
+
+    let quantiteTotalProduit = document.getElementById("#totalQuantity");
+    quantiteTotalProduit.innerHTML = totalBase;
+    // on ajoute au html
+
+    let quantiteTotalPrix = document.getElementById("#totalPrice");
+    quantiteTotalPrix.innerHTML = totalPrix;
 
 
 
 
+}
 
 
+
+
+quantiteTotal();
 
 
 
