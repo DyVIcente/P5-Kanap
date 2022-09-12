@@ -101,16 +101,16 @@ function quantiteTotal() {
 
 
     for (let i = 0; i < lenghtItem; i++) {  // boucle pour ajouter la quanité et le prix * quantité
-        totalBase += productsLS[i].value;
-        totalPrix += (productsLS[i].value * productsLS[i].price)
+        totalBase += parseInt(productsLS[i].quantity);
+        totalPrix += parseInt(productsLS[i].quantity * productsLS[i].price);
     }
 
 
-    let quantiteTotalProduit = document.getElementById("#totalQuantity");
+    let quantiteTotalProduit = document.getElementById("totalQuantity");
     quantiteTotalProduit.innerHTML = totalBase;
     // on ajoute au html
 
-    let quantiteTotalPrix = document.getElementById("#totalPrice");
+    let quantiteTotalPrix = document.getElementById("totalPrice");
     quantiteTotalPrix.innerHTML = totalPrix;
 
 

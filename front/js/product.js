@@ -74,8 +74,9 @@ let ajouterPanier = function (product) {
                 imageUrl: product.imageUrl,
                 altTxt: product.altTxt,
                 name: product.name,
-                price: product.price,
-                
+              //  price: product.price,
+               
+
 
             };
 
