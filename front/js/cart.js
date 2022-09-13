@@ -3,6 +3,43 @@ let productsLS = JSON.parse(localStorage.getItem("produit"));
 
 console.table(productsLS);
 
+// apppel du prix des produits, pour les distribuer dans la page:
+
+getArticle();
+function getArticle() {
+    fetch("http://localhost:3000/api/products/" + idProduct)
+    .then((res) => {
+        return res.json();
+    })
+
+    // Répartition des données de l'API dans le DOM
+    .then(async function (resultatAPI) {
+        article = await resultatAPI;
+        console.table(article);
+        if (article){
+            getPrice(article);
+        }
+    })
+    .catch((error) => {
+        console.log("Erreur de la requête API");
+    })
+}
+    
+function getPost(article){
+
+}
+
+  
+
+       
+
+
+
+
+
+
+
+
 displayCart();
 
 // Si le panier est vide
@@ -87,17 +124,17 @@ function displayCart() {
 }
 
 
-// quantité total et prix total des produits 
+//*********** */ quantité total et prix total des produits 
 
 
 
 function quantiteTotal() {
 
-    
+
 
     let lenghtItem = productsLS.length;
-     totalBase = 0; // on definit le total de base à 0 pour pouvoir ajouter 
-     totalPrix = 0;
+    totalBase = 0; // on definit le total de base à 0 pour pouvoir ajouter 
+    totalPrix = 0;
 
 
     for (let i = 0; i < lenghtItem; i++) {  // boucle pour ajouter la quanité et le prix * quantité
@@ -118,10 +155,69 @@ function quantiteTotal() {
 
 }
 
-
-
-
 quantiteTotal();
 
 
+
+//***********Suppression d'un produit 
+
+function deleteProduct() {
+
+
+
+    let boutonSuppr = document.querySelectorAll(".deleteItem"); //
+
+    for (let i = 0; i < boutonSuppr.length; i++) { // on  boucle sur les boutons suppr présent sur la page
+
+        boutonSuppr[i].addEventListener("click", function (event) { // on écoute le click sur ces boutons 
+
+
+            let supprId = productsLS[i]._id;    // on def l'id et la couleur a sppr
+            let supprColor = productsLS[i].color;
+
+            //La méthode filter() crée et retourne un nouveau tableau contenant tous les éléments du tableau d'origine qui remplissent une condition déterminée par la fonction callback.
+
+            productsLS = productsLS.filter(i => i._id !== supprId || i.color !== supprColor); // il faut que l'id et la couleur soit differente de celle suppr 
+
+            localStorage.setItem("produit", JSON.stringify(productsLS)); // push des nouveaux elements qui n'ont pas été suppr
+            console.log("Produit supprimé");
+            location.reload(); // rechargement de la page après suppression pour afficher le nouveau panier
+        })
+    }
+}
+
+
+deleteProduct();
+
+
+
+// Modification d'une quantité de produit
+function modifyProduct() {
+    let quantiteDeBase = document.querySelectorAll(".itemQuantity");
+
+    for (let i = 0; i < quantiteDeBase.length; i++){
+
+        quantiteDeBase[i].addEventListener("change" , function (event) {  
+
+           
+            let supprId = productsLS[i]._id;    // on def l'id et la couleur a sppr
+            let supprColor = productsLS[i].color;
+            let modifQuantite = productsLS[i].quantity;
+            let qttModifValue = parseInt(quantiteDeBase[i].quantity);
+            
+            const resultmodif = productsLS.find((i) =>sdzdszdz );
+
+// si couleur et id identique mais quantite dif , on prend la nouvelle 
+
+           
+           
+
+           // localStorage.setItem("produit", JSON.stringify(productsLS)); push 
+        
+             
+            //location.reload(); et rechargement de page
+     })
+    }
+}
+modifyProduct();
 
