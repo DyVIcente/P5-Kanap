@@ -100,7 +100,7 @@ async function displayCart() {
             supprimerItem.classList.add("deleteItem");
             supprimerItem.innerHTML = "Supprimer";
 
-
+            // calcul prix total  !
             let lenghtItem = productsLS.length;
             totalPrix = 0;
         
@@ -112,6 +112,32 @@ async function displayCart() {
         
             let quantiteTotalPrix = document.getElementById("totalPrice");
             quantiteTotalPrix.innerHTML = totalPrix;
+
+
+
+
+            // modif quantité   !
+              function modifyProduct() {
+                let quantiteDeBase = document.querySelectorAll(".itemQuantity");
+        
+                for (let i = 0; i < quantiteDeBase.length; i++) {
+                    
+        
+                    quantiteDeBase[i].addEventListener("change", function (event) {
+                    event.preventDefault();
+        
+                        productsLS[i].quantity = quantiteDeBase[i].value;
+            
+                        localStorage.setItem("produit", JSON.stringify(productsLS));
+                    
+                        // refresh rapide
+                        location.reload();
+        
+        
+                    })
+                }
+            }
+            modifyProduct();
         }
         
 
@@ -140,7 +166,7 @@ async function displayCart() {
 
 
 
-    //*********** */ quantité total et prix total des produits 
+    //*********** */ quantité total  des produits 
    
 
 
@@ -208,29 +234,5 @@ async function displayCart() {
 
 
     // Modification d'une quantité de produit EN COURS 
-    function modifyProduct() {
-        let quantiteDeBase = document.querySelectorAll(".itemQuantity");
-
-        for (let i = 0; i < quantiteDeBase.length; i++) {
-
-            quantiteDeBase[i].addEventListener("change", function (event) {
-
-
-                let supprId = productsLS[i]._id;    // on def l'id et la couleur a sppr
-                let supprColor = productsLS[i].color;
-                let modifQuantite = productsLS[i].quantity;
-                let qttModifValue = parseInt(quantiteDeBase[i].quantity);
-
-
-
-                // si couleur et id identique mais quantite dif , on prend la nouvelle 
-
-
-
-
-
-            })
-        }
-    }
-    modifyProduct();
+  
 }
