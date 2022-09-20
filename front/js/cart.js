@@ -100,7 +100,20 @@ async function displayCart() {
             supprimerItem.classList.add("deleteItem");
             supprimerItem.innerHTML = "Supprimer";
 
+
+            let lenghtItem = productsLS.length;
+            totalPrix = 0;
+        
+            for (let i = 0; i < lenghtItem; i++) {
+                const product = await getArticle(productsLS[produit]._id);
+                totalPrix += parseInt(productsLS[i].quantity) * product.price;
+            }
+        
+        
+            let quantiteTotalPrix = document.getElementById("totalPrice");
+            quantiteTotalPrix.innerHTML = totalPrix;
         }
+        
 
     }
 
@@ -128,7 +141,7 @@ async function displayCart() {
 
 
     //*********** */ quantité total et prix total des produits 
-
+   
 
 
     function quantiteTotal() {
@@ -152,16 +165,7 @@ async function displayCart() {
 
 
         // pareil pour le prix
-        totalPrix = 0;
-
-        for (let i = 0; i < lenghtItem; i++) {
-            totalPrix += parseInt(productsLS[i].quantity * product.price);
-        }
-
-
-        let quantiteTotalPrix = document.getElementById("totalPrice");
-        quantiteTotalPrix.innerHTML = totalPrix;
-
+        
     }
 
     quantiteTotal();
