@@ -3,38 +3,6 @@ let productsLS = JSON.parse(localStorage.getItem("produit"));
 
 console.table(productsLS);
 
-// apppel du prix des produits, pour les distribuer dans la page:
-
-getArticle();
-function getArticle() {
-    fetch("http://localhost:3000/api/products/" + idProduct)
-    .then((res) => {
-        return res.json();
-    })
-
-    // Répartition des données de l'API dans le DOM
-    .then(async function (resultatAPI) {
-        article = await resultatAPI;
-        console.table(article);
-        if (article){
-            getPrice(article);
-        }
-    })
-    .catch((error) => {
-        console.log("Erreur de la requête API");
-    })
-}
-    
-function getPost(article){
-
-}
-
-  
-
-       
-
-
-
 
 
 
@@ -43,12 +11,25 @@ function getPost(article){
 displayCart();
 
 // Si le panier est vide
-function displayCart() {
+async function displayCart() {
     if (productsLS === null || productsLS == 0) {
         console.log("Panier vide");
     } else {
 
         for (let produit in productsLS) { // Boucler sur les produits du panier
+
+
+            const product = await getArticle(productsLS[produit]._id);
+            console.log(product);
+
+
+
+
+
+
+
+
+
 
             let produitArticle = document.createElement("article");
             document.querySelector("#cart__items").appendChild(produitArticle);   //article  <article   
@@ -86,7 +67,7 @@ function displayCart() {
 
             let itemPrice = document.createElement("p"); //  <p>42,00 €</p>
             itemTitle.appendChild(itemPrice);
-            itemPrice.innerHTML = productsLS[produit].price + " euros";
+            itemPrice.innerHTML = product.price + " euros";
 
             let cartItemSetting = document.createElement("div"); //<div class="cart__item__content__settings">
             carItemContent.appendChild(cartItemSetting);
@@ -113,6 +94,7 @@ function displayCart() {
             cartItemSetting.appendChild(itemContentSettingDelete);
             itemContentSettingDelete.classList.add("cart__item__content__settings__delete");
 
+
             let supprimerItem = document.createElement("p"); //<p class="deleteItem">Supprimer</p>
             itemContentSettingDelete.appendChild(supprimerItem);
             supprimerItem.classList.add("deleteItem");
@@ -121,103 +103,130 @@ function displayCart() {
         }
 
     }
-}
+
+    // appel a l'api pour les produits par rapport a leurs id
+    async function getArticle(productId) {
+        return fetch("http://localhost:3000/api/products/" + productId)
+            .then((res) => {
+                return res.json();
+            })
 
 
-//*********** */ quantité total et prix total des produits 
+            .catch((error) => {
+                console.log("Erreur API");
+            })
 
+            .then(function (product) {
+                // console.log(product);
+                // console.log(product.price);             // la je vois bien les prix dans les log
+                // console.log(`${product.price}`);
 
-
-function quantiteTotal() {
-
-
-
-    let lenghtItem = productsLS.length;
-    totalBase = 0; // on definit le total de base à 0 pour pouvoir ajouter 
-    totalPrix = 0;
-
-
-    for (let i = 0; i < lenghtItem; i++) {  // boucle pour ajouter la quanité et le prix * quantité
-        totalBase += parseInt(productsLS[i].quantity);
-        totalPrix += parseInt(productsLS[i].quantity * productsLS[i].price);
+                return product;
+            });
     }
 
 
-    let quantiteTotalProduit = document.getElementById("totalQuantity");
-    quantiteTotalProduit.innerHTML = totalBase;
-    // on ajoute au html
 
-    let quantiteTotalPrix = document.getElementById("totalPrice");
-    quantiteTotalPrix.innerHTML = totalPrix;
+    //*********** */ quantité total et prix total des produits 
 
 
 
-
-}
-
-quantiteTotal();
+    function quantiteTotal() {
 
 
 
-//***********Suppression d'un produit 
-
-function deleteProduct() {
-
+        let lenghtItem = productsLS.length;
+        totalBase = 0; // on definit le total de base à 0 pour pouvoir ajouter 
 
 
-    let boutonSuppr = document.querySelectorAll(".deleteItem"); //
 
-    for (let i = 0; i < boutonSuppr.length; i++) { // on  boucle sur les boutons suppr présent sur la page
+        for (let i = 0; i < lenghtItem; i++) {  // boucle pour ajouter la quanité et le prix * quantité
+            totalBase += parseInt(productsLS[i].quantity);
 
-        boutonSuppr[i].addEventListener("click", function (event) { // on écoute le click sur ces boutons 
+        }
 
 
-            let supprId = productsLS[i]._id;    // on def l'id et la couleur a sppr
-            let supprColor = productsLS[i].color;
+        let quantiteTotalProduit = document.getElementById("totalQuantity");
+        quantiteTotalProduit.innerHTML = totalBase;
+        // on ajoute au html
 
-            //La méthode filter() crée et retourne un nouveau tableau contenant tous les éléments du tableau d'origine qui remplissent une condition déterminée par la fonction callback.
 
-            productsLS = productsLS.filter(i => i._id !== supprId || i.color !== supprColor); // il faut que l'id et la couleur soit differente de celle suppr 
+        // pareil pour le prix
+        totalPrix = 0;
 
-            localStorage.setItem("produit", JSON.stringify(productsLS)); // push des nouveaux elements qui n'ont pas été suppr
-            console.log("Produit supprimé");
-            location.reload(); // rechargement de la page après suppression pour afficher le nouveau panier
-        })
+        for (let i = 0; i < lenghtItem; i++) {
+            totalPrix += parseInt(productsLS[i].quantity * product.price);
+        }
+
+
+        let quantiteTotalPrix = document.getElementById("totalPrice");
+        quantiteTotalPrix.innerHTML = totalPrix;
+
     }
-}
+
+    quantiteTotal();
 
 
-deleteProduct();
 
 
 
-// Modification d'une quantité de produit
-function modifyProduct() {
-    let quantiteDeBase = document.querySelectorAll(".itemQuantity");
 
-    for (let i = 0; i < quantiteDeBase.length; i++){
+    //***********Suppression d'un produit 
 
-        quantiteDeBase[i].addEventListener("change" , function (event) {  
+    function deleteProduct() {
 
-           
-            let supprId = productsLS[i]._id;    // on def l'id et la couleur a sppr
-            let supprColor = productsLS[i].color;
-            let modifQuantite = productsLS[i].quantity;
-            let qttModifValue = parseInt(quantiteDeBase[i].quantity);
-            
-            const resultmodif = productsLS.find((i) =>sdzdszdz );
 
-// si couleur et id identique mais quantite dif , on prend la nouvelle 
 
-           
-           
+        let boutonSuppr = document.querySelectorAll(".deleteItem"); //
 
-           // localStorage.setItem("produit", JSON.stringify(productsLS)); push 
-        
-             
-            //location.reload(); et rechargement de page
-     })
+        for (let i = 0; i < boutonSuppr.length; i++) { // on  boucle sur les boutons suppr présent sur la page
+
+            boutonSuppr[i].addEventListener("click", function (event) { // on écoute le click sur ces boutons 
+
+
+                let supprId = productsLS[i]._id;    // on def l'id et la couleur a sppr
+                let supprColor = productsLS[i].color;
+
+                //La méthode filter() crée et retourne un nouveau tableau contenant tous les éléments du tableau d'origine qui remplissent une condition déterminée par la fonction callback.
+
+                productsLS = productsLS.filter(i => i._id !== supprId || i.color !== supprColor); // il faut que l'id et la couleur soit differente de celle suppr 
+
+                localStorage.setItem("produit", JSON.stringify(productsLS)); // push des nouveaux elements qui n'ont pas été suppr
+                alert("Produit supprimé");
+                location.reload(); // rechargement de la page après suppression pour afficher le nouveau panier
+            })
+        }
     }
-}
-modifyProduct();
 
+
+    deleteProduct();
+
+
+
+    // Modification d'une quantité de produit EN COURS 
+    function modifyProduct() {
+        let quantiteDeBase = document.querySelectorAll(".itemQuantity");
+
+        for (let i = 0; i < quantiteDeBase.length; i++) {
+
+            quantiteDeBase[i].addEventListener("change", function (event) {
+
+
+                let supprId = productsLS[i]._id;    // on def l'id et la couleur a sppr
+                let supprColor = productsLS[i].color;
+                let modifQuantite = productsLS[i].quantity;
+                let qttModifValue = parseInt(quantiteDeBase[i].quantity);
+
+
+
+                // si couleur et id identique mais quantite dif , on prend la nouvelle 
+
+
+
+
+
+            })
+        }
+    }
+    modifyProduct();
+}

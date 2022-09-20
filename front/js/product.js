@@ -37,7 +37,7 @@ let elementDesProduits = function (product) {  // les elem des produits on les d
     // Le title aussi ! 
 
 
-    // les couleurs toujours pas avec getbyid et query vu qu'il y en a plusieurs doit y avoir un truc à faire, à voir !
+  
     let pRainbow = document.getElementById("colors"); // on dit que #colors c'est p 
     for (let i = 0; i < product.colors.length; i++) { // on boucle pour ajouter les couleurs tant qu'il y en a
         let option = document.createElement("option"); // on dit que option c'est créer l'élément option
@@ -74,6 +74,7 @@ let ajouterPanier = function (product) {
                 imageUrl: product.imageUrl,
                 altTxt: product.altTxt,
                 name: product.name,
+               
               //  price: product.price,
                
 
