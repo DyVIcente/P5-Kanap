@@ -103,13 +103,13 @@ async function displayCart() {
             // calcul prix total  !
             let lenghtItem = productsLS.length;
             totalPrix = 0;
-        
+
             for (let i = 0; i < lenghtItem; i++) {
                 const product = await getArticle(productsLS[produit]._id);
                 totalPrix += parseInt(productsLS[i].quantity) * product.price;
             }
-        
-        
+
+
             let quantiteTotalPrix = document.getElementById("totalPrice");
             quantiteTotalPrix.innerHTML = totalPrix;
 
@@ -117,29 +117,29 @@ async function displayCart() {
 
 
             // modif quantité   !
-              function modifyProduct() {
+            function modifyProduct() {
                 let quantiteDeBase = document.querySelectorAll(".itemQuantity");
-        
+
                 for (let i = 0; i < quantiteDeBase.length; i++) {
-                    
-        
+
+
                     quantiteDeBase[i].addEventListener("change", function (event) {
-                    event.preventDefault();
-        
+                        event.preventDefault();
+
                         productsLS[i].quantity = quantiteDeBase[i].value;
-            
+
                         localStorage.setItem("produit", JSON.stringify(productsLS));
-                    
+
                         // refresh rapide
                         location.reload();
-        
-        
+
+
                     })
                 }
             }
             modifyProduct();
         }
-        
+
 
     }
 
@@ -167,7 +167,7 @@ async function displayCart() {
 
 
     //*********** */ quantité total  des produits 
-   
+
 
 
     function quantiteTotal() {
@@ -191,7 +191,7 @@ async function displayCart() {
 
 
         // pareil pour le prix
-        
+
     }
 
     quantiteTotal();
@@ -231,8 +231,130 @@ async function displayCart() {
 
     deleteProduct();
 
-
-
-    // Modification d'une quantité de produit EN COURS 
-  
 }
+
+
+// ****** *Formulaire et regex ******* 
+
+function getForm(){
+let form = document.querySelector(".cart__order__form");
+
+
+
+
+//ecoute sur la modification du input du form email 
+form.email.addEventListener('change', function () {
+    validEmail(this)
+});
+
+//ecoute sur la modification du input du form prénnom
+form.firstName.addEventListener('change', function () {
+    validfirstName(this)
+});
+
+//ecoute sur la modification du input du form nom
+form.lastName.addEventListener('change', function () {
+    validlastName(this)
+});
+
+//ecoute sur la modification du input du form adresse
+form.address.addEventListener('change', function () {
+    validaddress(this)
+});
+
+//ecoute sur la modification du input du form ville
+form.city.addEventListener('change', function () {
+    validcity(this)
+});
+
+
+
+
+
+// ****** Validation Email *********** 
+const validEmail = function (inputEmail) {
+    // Creation de la reg exp pour validation email
+    let emailRegexp = new RegExp ('^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$');
+
+    // recuperation de la balise emailErrorMsg
+    let emailErrorMsg = inputEmail.nextElementSibling;
+
+    // On test l'expression reguliere
+    if (emailRegexp.test(inputEmail.value)) {
+        emailErrorMsg.innerHTML = ' Valide';
+    } else {
+        emailErrorMsg.innerHTML = 'Email Non Valide';
+    }
+};
+
+
+// ****** Validation Prénom *********** 
+const validfirstName = function (inputFirstName) {
+    // Creation de la reg exp pour validation Prénom
+    let FirstNameRegexp = new RegExp ("^[a-zA-Z ,.'-]+$");
+
+    // recuperation de la balise FirstNameErrorMsg
+    let FirstNameErrorMsg = inputFirstName.nextElementSibling;
+
+    // On test l'expression reguliere
+    if (FirstNameRegexp.test(inputFirstName.value)) {
+        FirstNameErrorMsg.innerHTML = 'Prénom Valide';
+    } else {
+        FirstNameErrorMsg.innerHTML = 'Prénom Non Valide';
+    }
+};
+
+// ****** Validation Nom *********** 
+const validlastName = function (inputLastName) {
+    // Creation de la reg exp pour validation email
+    let lastNameRegexp = new RegExp ("^[a-zA-Z ,.'-]+$");
+
+    // recuperation de la balise emailErrorMsg
+    let lastNameErrorMsg = inputLastName.nextElementSibling;
+
+    // On test l'expression reguliere
+    if (lastNameRegexp.test(inputLastName.value)) {
+        lastNameErrorMsg.innerHTML = ' Valide';
+    } else {
+        lastNameErrorMsg.innerHTML = 'Nom Non Valide';
+    }
+};
+
+// ****** Validation Adresse *********** 
+const validaddress = function (inputAddress) {
+    // Creation de la reg exp pour validation email
+    let addressRegexp = new RegExp ("^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+");;
+
+    // recuperation de la balise emailErrorMsg
+    let addressErrorMsg = inputAddress.nextElementSibling;
+
+    // On test l'expression reguliere
+    if (addressRegexp.test(inputAddress.value)) {
+        addressErrorMsg.innerHTML = ' Valide';
+    } else {
+        addressErrorMsg.innerHTML = 'Adresse Non Valide';
+    }
+};
+
+// ****** Validation Ville *********** 
+const validcity = function (inputCity) {
+    // Creation de la reg exp pour validation email
+    let cityRegexp = new RegExp ("^[a-zA-Z ,.'-]+$");
+
+    // recuperation de la balise emailErrorMsg
+    let cityErrorMsg = (inputCity.nextElementSibling);
+
+    // On test l'expression reguliere
+    if (cityRegexp.test(inputCity.value)) {
+        cityErrorMsg.innerHTML = ' Valide';
+    } else {
+        cityErrorMsg.innerHTML = 'Ville Non Valide';
+    }
+};
+
+
+
+
+
+
+}getForm();
