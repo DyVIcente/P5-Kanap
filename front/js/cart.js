@@ -279,9 +279,9 @@ const validEmail = function (inputEmail) {
     // recuperation de la balise emailErrorMsg
     let emailErrorMsg = inputEmail.nextElementSibling;
 
-    // On test l'expression reguliere
+    // On test l'expression reguliere "<span style='color: red;'>**Message</span>";
     if (emailRegexp.test(inputEmail.value)) {
-        emailErrorMsg.innerHTML = ' Valide';
+        emailErrorMsg.innerHTML = "<span style='color: green;' > Email Valide</span>";
     } else {
         emailErrorMsg.innerHTML = 'Email Non Valide';
     }
@@ -298,7 +298,7 @@ const validfirstName = function (inputFirstName) {
 
     // On test l'expression reguliere
     if (FirstNameRegexp.test(inputFirstName.value)) {
-        FirstNameErrorMsg.innerHTML = 'Prénom Valide';
+        FirstNameErrorMsg.innerHTML = "<span style='color: green;' > Prénom Valide</span>";
     } else {
         FirstNameErrorMsg.innerHTML = 'Prénom Non Valide';
     }
@@ -314,7 +314,7 @@ const validlastName = function (inputLastName) {
 
     // On test l'expression reguliere
     if (lastNameRegexp.test(inputLastName.value)) {
-        lastNameErrorMsg.innerHTML = ' Valide';
+        lastNameErrorMsg.innerHTML = "<span style='color: green;' > Nom Valide</span>";
     } else {
         lastNameErrorMsg.innerHTML = 'Nom Non Valide';
     }
@@ -330,7 +330,7 @@ const validaddress = function (inputAddress) {
 
     // On test l'expression reguliere
     if (addressRegexp.test(inputAddress.value)) {
-        addressErrorMsg.innerHTML = ' Valide';
+        addressErrorMsg.innerHTML = "<span style='color: green;' > Adresse Valide</span>";
     } else {
         addressErrorMsg.innerHTML = 'Adresse Non Valide';
     }
@@ -346,7 +346,7 @@ const validcity = function (inputCity) {
 
     // On test l'expression reguliere
     if (cityRegexp.test(inputCity.value)) {
-        cityErrorMsg.innerHTML = ' Valide';
+        cityErrorMsg.innerHTML = "<span style='color: green;' > Ville Valide</span>";
     } else {
         cityErrorMsg.innerHTML = 'Ville Non Valide';
     }
