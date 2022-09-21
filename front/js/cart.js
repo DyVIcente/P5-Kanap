@@ -236,125 +236,162 @@ async function displayCart() {
 
 // ****** *Formulaire et regex ******* 
 
-function getForm(){
-let form = document.querySelector(".cart__order__form");
+function getForm() {
+    let form = document.querySelector(".cart__order__form");
+    let order = document.querySelector('#order');
 
 
 
 
-//ecoute sur la modification du input du form email 
-form.email.addEventListener('change', function () {
-    validEmail(this)
-});
+    //ecoute sur la modification du input du form email 
+    form.email.addEventListener('change', function () {
+        validEmail(this)
+    });
 
-//ecoute sur la modification du input du form prénnom
-form.firstName.addEventListener('change', function () {
-    validfirstName(this)
-});
+    //ecoute sur la modification du input du form prénnom
+    form.firstName.addEventListener('change', function () {
+        validfirstName(this)
+    });
 
-//ecoute sur la modification du input du form nom
-form.lastName.addEventListener('change', function () {
-    validlastName(this)
-});
+    //ecoute sur la modification du input du form nom
+    form.lastName.addEventListener('change', function () {
+        validlastName(this)
+    });
 
-//ecoute sur la modification du input du form adresse
-form.address.addEventListener('change', function () {
-    validaddress(this)
-});
+    //ecoute sur la modification du input du form adresse
+    form.address.addEventListener('change', function () {
+        validaddress(this)
+    });
 
-//ecoute sur la modification du input du form ville
-form.city.addEventListener('change', function () {
-    validcity(this)
-});
-
-
-
-
-
-// ****** Validation Email *********** 
-const validEmail = function (inputEmail) {
-    // Creation de la reg exp pour validation email
-    let emailRegexp = new RegExp ('^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$');
-
-    // recuperation de la balise emailErrorMsg
-    let emailErrorMsg = inputEmail.nextElementSibling;
-
-    // On test l'expression reguliere "<span style='color: red;'>**Message</span>";
-    if (emailRegexp.test(inputEmail.value)) {
-        emailErrorMsg.innerHTML = "<span style='color: green;' > Email Valide</span>";
-    } else {
-        emailErrorMsg.innerHTML = 'Email Non Valide';
-    }
-};
-
-
-// ****** Validation Prénom *********** 
-const validfirstName = function (inputFirstName) {
-    // Creation de la reg exp pour validation Prénom
-    let FirstNameRegexp = new RegExp ("^[a-zA-Z ,.'-]+$");
-
-    // recuperation de la balise FirstNameErrorMsg
-    let FirstNameErrorMsg = inputFirstName.nextElementSibling;
-
-    // On test l'expression reguliere
-    if (FirstNameRegexp.test(inputFirstName.value)) {
-        FirstNameErrorMsg.innerHTML = "<span style='color: green;' > Prénom Valide</span>";
-    } else {
-        FirstNameErrorMsg.innerHTML = 'Prénom Non Valide';
-    }
-};
-
-// ****** Validation Nom *********** 
-const validlastName = function (inputLastName) {
-    // Creation de la reg exp pour validation email
-    let lastNameRegexp = new RegExp ("^[a-zA-Z ,.'-]+$");
-
-    // recuperation de la balise emailErrorMsg
-    let lastNameErrorMsg = inputLastName.nextElementSibling;
-
-    // On test l'expression reguliere
-    if (lastNameRegexp.test(inputLastName.value)) {
-        lastNameErrorMsg.innerHTML = "<span style='color: green;' > Nom Valide</span>";
-    } else {
-        lastNameErrorMsg.innerHTML = 'Nom Non Valide';
-    }
-};
-
-// ****** Validation Adresse *********** 
-const validaddress = function (inputAddress) {
-    // Creation de la reg exp pour validation email
-    let addressRegexp = new RegExp ("^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+");;
-
-    // recuperation de la balise emailErrorMsg
-    let addressErrorMsg = inputAddress.nextElementSibling;
-
-    // On test l'expression reguliere
-    if (addressRegexp.test(inputAddress.value)) {
-        addressErrorMsg.innerHTML = "<span style='color: green;' > Adresse Valide</span>";
-    } else {
-        addressErrorMsg.innerHTML = 'Adresse Non Valide';
-    }
-};
-
-// ****** Validation Ville *********** 
-const validcity = function (inputCity) {
-    // Creation de la reg exp pour validation email
-    let cityRegexp = new RegExp ("^[a-zA-Z ,.'-]+$");
-
-    // recuperation de la balise emailErrorMsg
-    let cityErrorMsg = (inputCity.nextElementSibling);
-
-    // On test l'expression reguliere
-    if (cityRegexp.test(inputCity.value)) {
-        cityErrorMsg.innerHTML = "<span style='color: green;' > Ville Valide</span>";
-    } else {
-        cityErrorMsg.innerHTML = 'Ville Non Valide';
-    }
-};
+    //ecoute sur la modification du input du form ville
+    form.city.addEventListener('change', function () {
+        validcity(this)
+    });
 
 
 
 
 
 
-}getForm();
+
+
+    // ****** Validation Email *********** 
+    const validEmail = function (inputEmail) {
+        // Creation de la reg exp pour validation email
+        let emailRegexp = new RegExp('^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$');
+
+        // recuperation de la balise emailErrorMsg
+        let emailErrorMsg = inputEmail.nextElementSibling;
+
+        // On test l'expression reguliere "<span style='color: red;'>**Message</span>";
+        if (emailRegexp.test(inputEmail.value)) {
+            emailErrorMsg.innerHTML = "<span style='color: green;' > Email Valide</span>";
+            return true;
+        } else {
+            emailErrorMsg.innerHTML = 'Email Non Valide';
+            return false;
+        }
+    };
+
+
+    // ****** Validation Prénom *********** 
+    const validfirstName = function (inputFirstName) {
+        // Creation de la reg exp pour validation Prénom
+        let FirstNameRegexp = new RegExp("^[a-zA-Z ,.'-]+$");
+
+        // recuperation de la balise FirstNameErrorMsg
+        let FirstNameErrorMsg = inputFirstName.nextElementSibling;
+
+        // On test l'expression reguliere
+        if (FirstNameRegexp.test(inputFirstName.value)) {
+            FirstNameErrorMsg.innerHTML = "<span style='color: green;' > Prénom Valide</span>";
+            return true;
+        } else {
+            FirstNameErrorMsg.innerHTML = 'Prénom Non Valide';
+            return false;
+        }
+    };
+
+    // ****** Validation Nom *********** 
+    const validlastName = function (inputLastName) {
+        // Creation de la reg exp pour validation email
+        let lastNameRegexp = new RegExp("^[a-zA-Z ,.'-]+$");
+
+        // recuperation de la balise emailErrorMsg
+        let lastNameErrorMsg = inputLastName.nextElementSibling;
+
+        // On test l'expression reguliere
+        if (lastNameRegexp.test(inputLastName.value)) {
+            lastNameErrorMsg.innerHTML = "<span style='color: green;' > Nom Valide</span>";
+            return true;
+        } else {
+            lastNameErrorMsg.innerHTML = 'Nom Non Valide';
+            return false;
+        }
+    };
+
+    // ****** Validation Adresse *********** 
+    const validaddress = function (inputAddress) {
+        // Creation de la reg exp pour validation email
+        let addressRegexp = new RegExp("^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+");;
+
+        // recuperation de la balise emailErrorMsg
+        let addressErrorMsg = inputAddress.nextElementSibling;
+
+        // On test l'expression reguliere
+        if (addressRegexp.test(inputAddress.value)) {
+            addressErrorMsg.innerHTML = "<span style='color: green;' > Adresse Valide</span>";
+            return true;
+        } else {
+            addressErrorMsg.innerHTML = 'Adresse Non Valide';
+            return false;
+        }
+    };
+
+    // ****** Validation Ville *********** 
+    const validcity = function (inputCity) {
+        // Creation de la reg exp pour validation email
+        let cityRegexp = new RegExp("^[a-zA-Z ,.'-]+$");
+
+        // recuperation de la balise emailErrorMsg
+        let cityErrorMsg = (inputCity.nextElementSibling);
+
+        // On test l'expression reguliere
+        if (cityRegexp.test(inputCity.value)) {
+            cityErrorMsg.innerHTML = "<span style='color: green;' > Ville Valide</span>";
+            return true;
+        } else {
+            cityErrorMsg.innerHTML = 'Ville Non Valide';
+            return false;
+        }
+    };
+
+    let contact = {
+        firstName: document.querySelector("#firstName").value,
+        lastName: document.querySelector("#lastName").value,
+        address: document.querySelector("#address").value,
+        city: document.querySelector("#city").value,
+        email: document.querySelector("#email").value,
+    };
+    
+
+    order.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (
+            emailRegexp.test(inputEmail.value) &&
+            FirstNameRegexp.test(inputFirstName.value) &&
+            lastNameRegexp.test(inputLastName.value) &&
+            addressRegexp.test(inputAddress.value) &&
+            cityRegexp.test(inputCity.value)
+
+        ) {
+            console.log('info valid');
+
+        } else {
+            console.log('info non valid');
+        }
+    });
+
+
+
+ } getForm();
