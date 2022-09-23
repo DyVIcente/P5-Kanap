@@ -1,4 +1,3 @@
-
 let productsLS = JSON.parse(localStorage.getItem("produit"));
 
 console.table(productsLS);
@@ -237,8 +236,9 @@ async function displayCart() {
 // ****** *Formulaire et regex ******* 
 
 function getForm() {
+
     let form = document.querySelector(".cart__order__form");
-    let order = document.querySelector('#order');
+    let order = document.querySelector("#order");
 
 
 
@@ -366,32 +366,88 @@ function getForm() {
         }
     };
 
-    let contact = {
-        firstName: document.querySelector("#firstName").value,
-        lastName: document.querySelector("#lastName").value,
-        address: document.querySelector("#address").value,
-        city: document.querySelector("#city").value,
-        email: document.querySelector("#email").value,
-    };
+
+
+
+    // order.addEventListener('click', function (e) {
+    //     e.preventDefault();
+    //     if (
+    //         emailRegexp.test(inputEmail.value) &&      /// ça fonctionne pas ici emailRexg n'est pas lu 
+    //         FirstNameRegexp.test(inputFirstName.value) &&
+    //         lastNameRegexp.test(inputLastName.value) &&
+    //         addressRegexp.test(inputAddress.value) &&
+    //         cityRegexp.test(inputCity.value)
+
+    //     ) {
+    //         console.log('info valid');
+
+    //     } else {
+    //         console.log('info non valid');
+    //     }
+    // });
+
+
+
+} getForm();
+
+
+ function postForm(){
+    const commandeBtn = document.getElementById("order");
+
+    //Ecouter le panier
+    commandeBtn.addEventListener("click", function (event) {
     
+        //Récupération des coordonnées du formulaire client
+        let inputFirstName = document.getElementById('firstName');
+        let inputLastName = document.getElementById('lastName');
+        let inputAddress = document.getElementById('address');
+        let inputCity = document.getElementById('city');
+        let inputEmail = document.getElementById('email');
 
-    order.addEventListener('click', function (e) {
-        e.preventDefault();
-        if (
-            emailRegexp.test(inputEmail.value) &&
-            FirstNameRegexp.test(inputFirstName.value) &&
-            lastNameRegexp.test(inputLastName.value) &&
-            addressRegexp.test(inputAddress.value) &&
-            cityRegexp.test(inputCity.value)
-
-        ) {
-            console.log('info valid');
-
-        } else {
-            console.log('info non valid');
+        //Construction d'un array depuis le local storage
+        let orderId = [];
+        for (let i = 0; i<productsLS.length;i++) {
+            orderId.push(productsLS[i]._id);
         }
-    });
+        console.log(orderId);                       // orderId affiché
 
+        const order = {
+            contact : {
+                firstName: inputFirstName.value,
+                lastName: inputLastName.value,
+                address: inputAddress.value,
+                city: inputCity.value,
+                email: inputEmail.value,
+                
+            },
+            products: orderId,
+        } 
+        console.log(firstName);
+        const options = {
+            method: 'POST',
+            body: JSON.stringify(order),
+            headers: {
+                'Accept': 'application/json', 
+                "Content-Type": "application/json" 
+            },
+        };
 
+       fetch("http://localhost:3000/api/products/order", options)
 
- } getForm();
+        .then( function (response){
+            response.json()
+        })
+
+        .then(function (data) {
+            console.log(data);
+            localStorage.clear();
+            localStorage.setItem("orderId", data.orderId);
+
+            document.location.href = "confirmation.html";
+        })
+        .catch(function (erreur) {
+            alert ("Problème avec fetch : " + erreur.message);
+        });
+        })
+}
+postForm();
