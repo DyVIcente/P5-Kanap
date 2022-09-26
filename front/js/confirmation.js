@@ -1,10 +1,8 @@
-// Récupère l'ID contenu dans l'URL
-let idWindow = window.location.href; 
+function main(){
+    const idcommande = document.getElementById("orderId");
+    idcommande.innerText = localStorage.getItem("orderId");
+    console.log(localStorage.getItem("orderId"))
+    localStorage.clear();
+}
 
-let url = new URL(idWindow);
-
-let numeroCommande = url.searchParams.get("orderId");
-
-
-// Affiche l'ID dans le html
-document.querySelector("#orderId").innerHTML = numeroCommande;
+main();
