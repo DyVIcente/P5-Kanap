@@ -234,11 +234,17 @@ async function displayCart() {
 
 
 // ****** *Formulaire et regex ******* 
+//Récupération des coordonnées du formulaire client
+        let inputFirstName = document.getElementById('firstName');    // on recupere les input dans les elements du formulaire
+        let inputLastName = document.getElementById('lastName');
+        let inputAddress = document.getElementById('address');
+        let inputCity = document.getElementById('city');
+        let inputEmail = document.getElementById('email');
 
 function getForm() {
 
     let form = document.querySelector(".cart__order__form");
-    let order = document.querySelector("#order");
+    
 
 
 
@@ -367,87 +373,88 @@ function getForm() {
     };
 
 
-
-
-    // order.addEventListener('click', function (e) {
-    //     e.preventDefault();
-    //     if (
-    //         emailRegexp.test(inputEmail.value) &&      /// ça fonctionne pas ici emailRexg n'est pas lu 
-    //         FirstNameRegexp.test(inputFirstName.value) &&
-    //         lastNameRegexp.test(inputLastName.value) &&
-    //         addressRegexp.test(inputAddress.value) &&
-    //         cityRegexp.test(inputCity.value)
-
-    //     ) {
-    //         console.log('info valid');
-
-    //     } else {
-    //         console.log('info non valid');
-    //     }
-    // });
-
-
-
-} getForm();
-
-
- function postForm(){
-    const commandeBtn = document.getElementById("order");
+   
 
     //Ecouter le panier
-    commandeBtn.addEventListener("click", function (event) {
-    
-        //Récupération des coordonnées du formulaire client
-        let inputFirstName = document.getElementById('firstName');
-        let inputLastName = document.getElementById('lastName');
-        let inputAddress = document.getElementById('address');
-        let inputCity = document.getElementById('city');
-        let inputEmail = document.getElementById('email');
+    form.addEventListener("submit", function (event) {      // on écoute le click sur le bouton order
 
-        //Construction d'un array depuis le local storage
-        let orderId = [];
-        for (let i = 0; i<productsLS.length;i++) {
-            orderId.push(productsLS[i]._id);
+        event.preventDefault();
+        if (
+            validEmail(inputEmail) &&                     
+            validfirstName(inputFirstName) &&
+            validlastName(inputLastName) &&
+            validaddress(inputAddress) &&
+            validcity(inputCity)
+
+        ) {
+            console.log('info valid');
+            postForm();
+
+        } else {
+            console.log('info non valid');
         }
-        console.log(orderId);                       // orderId affiché
+        return false;
+    });
 
-        const order = {
-            contact : {
+
+
+} 
+
+getForm();
+
+
+
+function postForm() {
+  
+        
+
+        //on construit un tableau de produit
+        let orderId = [];
+        for (let i = 0; i < productsLS.length; i++) {       // on boucle sur les produits présents 
+            orderId.push(productsLS[i]._id);       // on push d
+        }
+        console.log(orderId);                       // on récupère bien l'orderId
+
+        const order = {                                   // construction d'un objet contact 
+            contact: {
                 firstName: inputFirstName.value,
                 lastName: inputLastName.value,
                 address: inputAddress.value,
                 city: inputCity.value,
                 email: inputEmail.value,
-                
+
             },
             products: orderId,
-        } 
-        console.log(firstName);
-        const options = {
+        }
+
+        console.log(order);   // rien ne s'affiche 
+
+
+
+        const options = {          // envoi de order par method post 
             method: 'POST',
             body: JSON.stringify(order),
             headers: {
-                'Accept': 'application/json', 
-                "Content-Type": "application/json" 
+                'Accept': 'application/json',
+                "Content-Type": "application/json"
             },
         };
 
-       fetch("http://localhost:3000/api/products/order", options)
+        fetch("http://localhost:3000/api/products/order", options)   // !!!!!!! fetch sur l'order avec la const options mais erreur ici sur fetch 
+                                                                        // du coup j'ai pas le reste
 
-        .then( function (response){
-            response.json()
-        })
+            .then(function (response) {
+              return  response.json()
+            })
 
-        .then(function (data) {
-            console.log(data);
-            localStorage.clear();
-            localStorage.setItem("orderId", data.orderId);
+            .then(function (data) {
+                console.log(data);
+                localStorage.clear();
+                localStorage.setItem("orderId", data.orderId);        // on store les infos      
 
-            document.location.href = "confirmation.html";
-        })
-        .catch(function (erreur) {
-            alert ("Problème avec fetch : " + erreur.message);
-        });
-        })
+                window.location.href = "confirmation.html"; // on redirige vers confirmation
+            })
+            .catch(function (erreur) {
+                alert("erreur");
+            });
 }
-postForm();
