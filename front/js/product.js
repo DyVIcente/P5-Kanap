@@ -62,8 +62,12 @@ let ajouterPanier = function (product) {
     button.addEventListener("click", function (cliquetis) { // on écoute sur le button le click
 
         cliquetis.preventDefault(); // on fait notre action et pas celle par defaut
-
-        if (quantityKanap.value > 0 && quantityKanap.value < 100) { // si on a entre 0 et 100 KANAP
+        if (colorKanap.value == false){
+            confirm("Veuillez sélectionner une couleur.")
+        }else if (quantityKanap.value == 0){
+            confirm("Veuillez sélectionner une quantité.")
+        }
+        else if (quantityKanap.value > 0 && quantityKanap.value < 100) { // si on a entre 0 et 100 KANAP
 
 
 
@@ -80,7 +84,7 @@ let ajouterPanier = function (product) {
 
 
             };
-
+            alert("Votre article a bien été ajouté au panier");
             console.log(elementDesProduits);  // On recup les trois valeurs id quantité et couleur demandé dasn étapes clés !
 
 
@@ -104,6 +108,7 @@ let ajouterPanier = function (product) {
                     productsLS.push(elementDesProduits); //Si le produit n'est pas déjà présent on ajoute les éléments à la fin du tableau 
                     localStorage.setItem("produit", JSON.stringify(productsLS)); // et on store à la suite 
                     console.table(productsLS);
+                    
                 }
 
             } else {
@@ -111,6 +116,7 @@ let ajouterPanier = function (product) {
                 productsLS.push(elementDesProduits); // on ajoute les éléments dans le tableau à la suite 
                 localStorage.setItem("produit", JSON.stringify(productsLS)); // et on store dans le localstorage
                 console.table(productsLS);
+               
 
             }
         }
