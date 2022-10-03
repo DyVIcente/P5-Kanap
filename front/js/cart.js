@@ -11,7 +11,10 @@ displayCart();
 
 // Si le panier est vide
 async function displayCart() {
+    const positionEmptyCart = document.getElementById("cart__items");
     if (productsLS === null || productsLS == 0) {
+        positionEmptyCart.textContent = "Votre panier est vide";
+        positionEmptyCart.style.textAlign = "center";
         console.log("Panier vide");
     } else {
 
@@ -410,8 +413,8 @@ function postForm() {
 
         //on construit un tableau de produit
         let orderId = [];
-        for (let i = 0; i < productsLS.length; i++) {       // on boucle sur les produits présents 
-            orderId.push(productsLS[i]._id);       // on push d
+        for (let i = 0; i < productsLS.length; i++) {       // on boucle sur les produits présents / autant d'id produit qu'il y a de quantité
+            orderId.push(productsLS[i]._id);       // on push d                                     let j = 0 ; j = productsLS.lenght ; j++ 
         }
         console.log(orderId);                       // on récupère bien l'orderId
 
