@@ -238,16 +238,16 @@ async function displayCart() {
 
 // ****** *Formulaire et regex ******* 
 //Récupération des coordonnées du formulaire client
-        let inputFirstName = document.getElementById('firstName');    // on recupere les input dans les elements du formulaire
-        let inputLastName = document.getElementById('lastName');
-        let inputAddress = document.getElementById('address');
-        let inputCity = document.getElementById('city');
-        let inputEmail = document.getElementById('email');
+let inputFirstName = document.getElementById('firstName');    // on recupere les input dans les elements du formulaire
+let inputLastName = document.getElementById('lastName');
+let inputAddress = document.getElementById('address');
+let inputCity = document.getElementById('city');
+let inputEmail = document.getElementById('email');
 
 function getForm() {
 
     let form = document.querySelector(".cart__order__form");
-    
+
 
 
 
@@ -376,14 +376,14 @@ function getForm() {
     };
 
 
-   
+
 
     //Ecouter le panier
     form.addEventListener("submit", function (event) {      // on écoute le click sur le bouton order
 
         event.preventDefault();
         if (
-            validEmail(inputEmail) &&                     
+            validEmail(inputEmail) &&
             validfirstName(inputFirstName) &&
             validlastName(inputLastName) &&
             validaddress(inputAddress) &&
@@ -401,63 +401,68 @@ function getForm() {
 
 
 
-} 
+}
 
 getForm();
 
 
 
 function postForm() {
-  
-        
 
-        //on construit un tableau de produit
-        let orderId = [];
-        for (let i = 0; i < productsLS.length; i++) {       // on boucle sur les produits présents / autant d'id produit qu'il y a de quantité
-            orderId.push(productsLS[i]._id);       // on push d                                     let j = 0 ; j = productsLS.lenght ; j++ 
-        }
-        console.log(orderId);                       // on récupère bien l'orderId
 
-        const order = {                                   // construction d'un objet contact 
-            contact: {
-                firstName: inputFirstName.value,
-                lastName: inputLastName.value,
-                address: inputAddress.value,
-                city: inputCity.value,
-                email: inputEmail.value,
 
-            },
-            products: orderId,
+    //on construit un tableau de produit
+    let productIds = [];
+    for (let i = 0; i < productsLS.length; i++) {  // on boucle sur les produits présents / autant d'id produit qu'il y a de quantité
+        for (let j = 1; j <= productsLS[i].quantity; j++) {
+            productIds.push(productsLS[i]._id);
         }
 
-        console.log(order);   // rien ne s'affiche 
+
+
+        // on push d                                   let j = 0 ; j = productsLS.quantity ; j++ 
+    }
+    console.log(productIds);                       // on récupère bien 
+
+    const order = {                                   // construction d'un objet contact 
+        contact: {
+            firstName: inputFirstName.value,
+            lastName: inputLastName.value,
+            address: inputAddress.value,
+            city: inputCity.value,
+            email: inputEmail.value,
+
+        },
+        products: productIds,
+    }
+
+    console.log(order);
 
 
 
-        const options = {          // envoi de order par method post 
-            method: 'POST',
-            body: JSON.stringify(order),
-            headers: {
-                'Accept': 'application/json',
-                "Content-Type": "application/json"
-            },
-        };
+    const options = {          // envoi de order par method post 
+        method: 'POST',
+        body: JSON.stringify(order),
+        headers: {
+            'Accept': 'application/json',
+            "Content-Type": "application/json"
+        },
+    };
 
-        fetch("http://localhost:3000/api/products/order", options)   // !!!!!!! fetch sur l'order avec la const options mais erreur ici sur fetch 
-                                                                        // du coup j'ai pas le reste
+    fetch("http://localhost:3000/api/products/order", options)   // !!!!!!! fetch sur l'order avec la const options 
 
-            .then(function (response) {
-              return  response.json()
-            })
+        .then(function (response) {
+            return response.json()
+        })
 
-            .then(function (data) {
-                console.log(data);
-                localStorage.clear();
-                localStorage.setItem("orderId", data.orderId);        // on store les infos      
+        .then(function (data) {
+            console.log(data);
+            localStorage.clear();
+            localStorage.setItem("orderId", data.orderId);        // on store les infos      
 
-                window.location.href = "confirmation.html"; // on redirige vers confirmation
-            })
-            .catch(function (erreur) {
-                alert("erreur");
-            });
+            window.location.href = "confirmation.html"; // on redirige vers confirmation
+        })
+        .catch(function (erreur) {
+            alert("erreur");
+        });
 }
