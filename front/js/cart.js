@@ -67,7 +67,7 @@ async function displayCart() {
             itemTitle.appendChild(itemColor);
             itemColor.innerHTML = productsLS[produit].color;
 
-            let itemPrice = document.createElement("p"); //  <p>42,00 €</p>
+            let itemPrice = document.createElement("p"); //  <p>42,00 €</p>  :: ************************* PRICE ********
             itemTitle.appendChild(itemPrice);
             itemPrice.innerHTML = product.price + " euros";
 
@@ -379,7 +379,7 @@ function getForm() {
 
 
     //Ecouter le panier
-    form.addEventListener("submit", function (event) {      // on écoute le click sur le bouton order
+    form.addEventListener("submit", function (event) {      // on écoute le sbmit sur le bouton order
 
         event.preventDefault();
         if (

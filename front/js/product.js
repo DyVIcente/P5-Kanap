@@ -1,10 +1,10 @@
 let produitId = function () {
     return new URL(location.href).searchParams.get("id");
-};   // On recup l'id des canap avec search qui renvoit les url de locationhref pour recup les bonnes url puis on chope l'id
+};   // On désigne une nouvelle url sur cette page, avec searchparams et la method get qui récupère l'id.
 
 const productId = produitId();
 // on dit donc que l'id recup et égal a l'id de la variable product id , oui tu vois ou je veux en venir 
-
+console.log(productId);
 fetch(`http://localhost:3000/api/products/${productId}`) // on fetch du coup l'url avec la variable productid qui sera bien la bonne vu ce qu'on a fait au dessus ! clever ! 
 
     .then(function (response) {
@@ -20,7 +20,7 @@ fetch(`http://localhost:3000/api/products/${productId}`) // on fetch du coup l'u
 
     .catch(function (error) {
         let itemerror = document.querySelector(".item");
-        itemerror.innerHTML = "Pas de Kanap pour toi ! ";
+        itemerror.innerHTML = "Pas de Kanap ! ";
         itemerror.style.textAlign = "center";
     })
 
@@ -37,7 +37,7 @@ let elementDesProduits = function (product) {  // les elem des produits on les d
     // Le title aussi ! 
 
 
-  
+
     let pRainbow = document.getElementById("colors"); // on dit que #colors c'est p 
     for (let i = 0; i < product.colors.length; i++) { // on boucle pour ajouter les couleurs tant qu'il y en a
         let option = document.createElement("option"); // on dit que option c'est créer l'élément option
@@ -49,22 +49,22 @@ let elementDesProduits = function (product) {  // les elem des produits on les d
 }
 
 
-    const button = document.querySelector("#addToCart");
-    const quantityKanap = document.querySelector("#quantity"); // On def quelques constantes pour les récupérer 
-    const colorKanap = document.querySelector("#colors");
-    
+const button = document.querySelector("#addToCart");
+const quantityKanap = document.querySelector("#quantity"); // On def quelques constantes pour les récupérer 
+const colorKanap = document.querySelector("#colors");
+
 
 
 let ajouterPanier = function (product) {
 
-    
+
 
     button.addEventListener("click", function (cliquetis) { // on écoute sur le button le click
 
         cliquetis.preventDefault(); // on fait notre action et pas celle par defaut
-        if (colorKanap.value == false){
+        if (colorKanap.value == false) {
             confirm("Veuillez sélectionner une couleur.")
-        }else if (quantityKanap.value == 0){
+        } else if (quantityKanap.value == 0) {
             confirm("Veuillez sélectionner une quantité.")
         }
         else if (quantityKanap.value > 0 && quantityKanap.value < 100) { // si on a entre 0 et 100 KANAP
@@ -78,9 +78,9 @@ let ajouterPanier = function (product) {
                 imageUrl: product.imageUrl,
                 altTxt: product.altTxt,
                 name: product.name,
-               
-              //  price: product.price,
-               
+
+                //  price: product.price,
+
 
 
             };
@@ -103,12 +103,12 @@ let ajouterPanier = function (product) {
                     localStorage.setItem("produit", JSON.stringify(productsLS)); // on store dans produit la nouvelle quantité
                     console.table(productsLS);
 
-                    
+
                 } else {
                     productsLS.push(elementDesProduits); //Si le produit n'est pas déjà présent on ajoute les éléments à la fin du tableau 
                     localStorage.setItem("produit", JSON.stringify(productsLS)); // et on store à la suite 
                     console.table(productsLS);
-                    
+
                 }
 
             } else {
@@ -116,7 +116,7 @@ let ajouterPanier = function (product) {
                 productsLS.push(elementDesProduits); // on ajoute les éléments dans le tableau à la suite 
                 localStorage.setItem("produit", JSON.stringify(productsLS)); // et on store dans le localstorage
                 console.table(productsLS);
-               
+
 
             }
         }

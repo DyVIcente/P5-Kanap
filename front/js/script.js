@@ -6,15 +6,15 @@ getArticles();
 function getArticles() {
   fetch("http://localhost:3000/api/products/")
 
-    .then(function (response) {  
-        return response.json();     
+    .then(function (response) {
+      return response.json();
     })
 
-    
-// On affiche un message d'erreur des plus délicieux
+
+    // On affiche un message d'erreur des plus délicieux
     .catch(function (error) {
       let itemsNotFound = document.querySelector(".items");
-      itemsNotFound.innerHTML = "Erreur, vérifier que le port 3000 est ouvert, merci, prennez soin de vous, on se voit à la piscine, Bisous";
+      itemsNotFound.innerHTML = "Erreur, vérifier que le port 3000 est ouvert, merci!";
 
     })
 
@@ -51,4 +51,4 @@ function getArticles() {
     });
 }
 
-  
+
