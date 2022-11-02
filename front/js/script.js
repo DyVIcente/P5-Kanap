@@ -13,8 +13,8 @@ function getArticles() {
 
     // On affiche un message d'erreur des plus délicieux
     .catch(function (error) {
-      let itemsNotFound = document.querySelector(".items");
-      itemsNotFound.innerHTML = "Erreur, vérifier que le port 3000 est ouvert, merci!";
+      let itemsNotFound = document.querySelector("#items");
+      itemsNotFound.textContent = "Erreur, vérifier que le port 3000 est ouvert, merci!";
 
     })
 
@@ -40,12 +40,12 @@ function getArticles() {
         let nameProduit = document.createElement("h3");
         articleProduit.appendChild(nameProduit);
         nameProduit.classList.add("productName");
-        nameProduit.innerHTML = resultatAPI[article].name;
+        nameProduit.textContent = resultatAPI[article].name;
 
         let descriptionProduit = document.createElement("p");
         articleProduit.appendChild(descriptionProduit);
         descriptionProduit.classList.add("productDescription");
-        descriptionProduit.innerHTML = resultatAPI[article].description;
+        descriptionProduit.textContent = resultatAPI[article].description;
 
       }
     });

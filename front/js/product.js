@@ -20,20 +20,20 @@ fetch(`http://localhost:3000/api/products/${productId}`) // on fetch du coup l'u
 
     .catch(function (error) {
         let itemerror = document.querySelector(".item");
-        itemerror.innerHTML = "Pas de Kanap ! ";
+        itemerror.textContent = "Pas de Kanap ! ";
         itemerror.style.textAlign = "center";
     })
 
 let elementDesProduits = function (product) {  // les elem des produits on les dispatch
     document.querySelector(".item__img").innerHTML += `<img src="${product.imageUrl}" alt="${product.altTxt}">`;
     // l'img avec la ligne html  dans producthtml merci ! 
-    document.getElementById("title").innerText += `${product.name}`;
+    document.getElementById("title").textContent+= `${product.name}`;
     // le nom on select l'id c'est cool 
-    document.getElementById("price").innerText += `${product.price}`;
+    document.getElementById("price").textContent += `${product.price}`;
     // meme combat avec le prix et son id 
-    document.getElementById("description").innerText += `${product.description}`;
+    document.getElementById("description").textContent += `${product.description}`;
     // tu l'as vu venir ? meme chose encore une fois !
-    document.querySelector('title').innerText = `${product.name}`;
+    document.querySelector('title').textContent = `${product.name}`;
     // Le title aussi ! 
 
 
@@ -42,7 +42,7 @@ let elementDesProduits = function (product) {  // les elem des produits on les d
     for (let i = 0; i < product.colors.length; i++) { // on boucle pour ajouter les couleurs tant qu'il y en a
         let option = document.createElement("option"); // on dit que option c'est créer l'élément option
         let colors = i; // on dit que colors c'est i ! 
-        option.innerText = product.colors[colors]; 
+        option.textContent = product.colors[colors]; 
         pRainbow.appendChild(option); // pour finir on appendchild a p pour qu'option ajoute un noeud en dessous ! 
         // merci d'avoir lu mon tedtalk !
     }

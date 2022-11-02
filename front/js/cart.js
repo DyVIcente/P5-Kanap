@@ -61,15 +61,15 @@ async function displayCart() {
 
             let itemTitle = document.createElement("h2");   // <h2>Nom du produit</h2>
             carItemContentDesp.appendChild(itemTitle);
-            itemTitle.innerHTML = productsLS[produit].name;
+            itemTitle.textContent = productsLS[produit].name;
 
             let itemColor = document.createElement("p"); // <p>Vert</p>
             itemTitle.appendChild(itemColor);
-            itemColor.innerHTML = productsLS[produit].color;
+            itemColor.textContent = productsLS[produit].color;
 
             let itemPrice = document.createElement("p"); //  <p>42,00 €</p>  :: ************************* PRICE ********
             itemTitle.appendChild(itemPrice);
-            itemPrice.innerHTML = product.price + " euros";
+            itemPrice.textContent = product.price + " euros";
 
             let cartItemSetting = document.createElement("div"); //<div class="cart__item__content__settings">
             carItemContent.appendChild(cartItemSetting);
@@ -100,7 +100,7 @@ async function displayCart() {
             let supprimerItem = document.createElement("p"); //<p class="deleteItem">Supprimer</p>
             itemContentSettingDelete.appendChild(supprimerItem);
             supprimerItem.classList.add("deleteItem");
-            supprimerItem.innerHTML = "Supprimer";
+            supprimerItem.textContent = "Supprimer";
 
             // calcul prix total  !
             let lenghtItem = productsLS.length;
@@ -113,7 +113,7 @@ async function displayCart() {
 
 
             let quantiteTotalPrix = document.getElementById("totalPrice");
-            quantiteTotalPrix.innerHTML = totalPrix;
+            quantiteTotalPrix.textContent = totalPrix;
 
 
 
@@ -188,7 +188,7 @@ async function displayCart() {
 
 
         let quantiteTotalProduit = document.getElementById("totalQuantity");
-        quantiteTotalProduit.innerHTML = totalBase;
+        quantiteTotalProduit.textContent = totalBase;
         // on ajoute au html
 
 
@@ -297,7 +297,7 @@ function getForm() {
             emailErrorMsg.innerHTML = "<span style='color: green;' > Email Valide</span>";
             return true;
         } else {
-            emailErrorMsg.innerHTML = 'Email Non Valide';
+            emailErrorMsg.textContent = 'Email Non Valide';
             return false;
         }
     };
@@ -316,7 +316,7 @@ function getForm() {
             FirstNameErrorMsg.innerHTML = "<span style='color: green;' > Prénom Valide</span>";
             return true;
         } else {
-            FirstNameErrorMsg.innerHTML = 'Prénom Non Valide';
+            FirstNameErrorMsg.textContent = 'Prénom Non Valide';
             return false;
         }
     };
@@ -334,7 +334,7 @@ function getForm() {
             lastNameErrorMsg.innerHTML = "<span style='color: green;' > Nom Valide</span>";
             return true;
         } else {
-            lastNameErrorMsg.innerHTML = 'Nom Non Valide';
+            lastNameErrorMsg.textContent = 'Nom Non Valide';
             return false;
         }
     };
@@ -352,7 +352,7 @@ function getForm() {
             addressErrorMsg.innerHTML = "<span style='color: green;' > Adresse Valide</span>";
             return true;
         } else {
-            addressErrorMsg.innerHTML = 'Adresse Non Valide';
+            addressErrorMsg.textContent = 'Adresse Non Valide';
             return false;
         }
     };
@@ -370,7 +370,7 @@ function getForm() {
             cityErrorMsg.innerHTML = "<span style='color: green;' > Ville Valide</span>";
             return true;
         } else {
-            cityErrorMsg.innerHTML = 'Ville Non Valide';
+            cityErrorMsg.textContent = 'Ville Non Valide';
             return false;
         }
     };
@@ -463,7 +463,7 @@ function postForm() {
            if (orderId != "") {
             location.href="confirmation.html?id=" + orderId;
         }
-        
+
         })
         
         .catch(function (erreur) {
