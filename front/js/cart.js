@@ -167,23 +167,17 @@ async function displayCart() {
     //*********** */ quantité total  des produits 
  // calcul prix total  !
  async function prixTotal(){
-
-    for (let produit in productsLS) { // Boucler sur les produits du panier
-            const product = await getArticle(productsLS[produit]._id);
         
-    
-    let lenghtItem = productsLS.length;
-    console.log(productsLS.length);
-
     totalPrix = 0;
 
-    for (let i = 0; i < lenghtItem; i++) {
-       
-        totalPrix = productsLS[i].quantity * product.price;
+    for (i = 0; i < productsLS.length; i++) {
+        const article = await getArticle(productsLS[i]._id);
+
+        totalPrix += parseInt(productsLS[i].quantity * article.price);
         console.log(productsLS[i].quantity);
-        console.log(product.price);
+        console.log(article.price);
         console.log(totalPrix);
-    }}
+    }
 
 
     let quantiteTotalPrix = document.getElementById("totalPrice");
