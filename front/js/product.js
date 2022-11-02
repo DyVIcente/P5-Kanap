@@ -42,7 +42,7 @@ let elementDesProduits = function (product) {  // les elem des produits on les d
     for (let i = 0; i < product.colors.length; i++) { // on boucle pour ajouter les couleurs tant qu'il y en a
         let option = document.createElement("option"); // on dit que option c'est créer l'élément option
         let colors = i; // on dit que colors c'est i ! 
-        option.innerText = product.colors[colors]; // pb j'ai toutes les couleurs parce que c'est un variable, idiot fallait mettre entre crochet pour un array !!!!!!
+        option.innerText = product.colors[colors]; 
         pRainbow.appendChild(option); // pour finir on appendchild a p pour qu'option ajoute un noeud en dessous ! 
         // merci d'avoir lu mon tedtalk !
     }
@@ -85,17 +85,18 @@ let ajouterPanier = function (product) {
 
             };
             alert("Votre article a bien été ajouté au panier");
-            console.log(elementDesProduits);  // On recup les trois valeurs id quantité et couleur demandé dasn étapes clés !
+            console.log(elementDesProduits);  // On recup les  valeurs id, quantity, color, imageUrl, altTxt et name du produit ! 
 
 
 
 
 
-            let productsLS = JSON.parse(localStorage.getItem("produit")); // productsLS est les produits recup dans le Localsotrage
+            let productsLS = JSON.parse(localStorage.getItem("produit")); // productsLS est les produits recup dans le Localsotrage getItem get from LS
+            // On change le texte json en objet javascript qui peut etre utiliser dans le programme
 
 
             if (productsLS) {   // si productsLS  est déjà présent avec la meme id et meme couleur 
-                const cartItem = productsLS.find((i) => i._id === productId && i.color === colorKanap.value);
+                const cartItem = productsLS.find((i) => i._id === productId && i.color === colorKanap.value); // find revoi la premiere valeur dans le tableau respectant la condition
 
                 if (cartItem) {
                     let newQuantity = parseInt(elementDesProduits.quantity) + parseInt(cartItem.quantity); //parseInt en ajoutant les quantité pour pas qu'elles se mettent à la suite mais qu'elles s'ajoutent

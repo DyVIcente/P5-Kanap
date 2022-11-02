@@ -456,13 +456,19 @@ function postForm() {
         })
 
         .then(function (data) {
-            console.log(data);
-            localStorage.clear();
-            localStorage.setItem("orderId", data.orderId);        // on store les infos      
+            console.log(data);   
+            orderId = data.orderId;
+           console.log(orderId);
 
-            window.location.href = "confirmation.html"; // on redirige vers confirmation
+           if (orderId != "") {
+            location.href="confirmation.html?id=" + orderId;
+        }
+        
         })
+        
         .catch(function (erreur) {
             alert("erreur");
         });
+
+        
 }

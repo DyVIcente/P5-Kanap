@@ -1,9 +1,14 @@
-function main() {
+ let produitId = function () {
+    return new URL(location.href).searchParams.get("id");
+};
+//J'utilise de nouveau URLsearchParams comme dans product.js
+  const orderId = produitId();
+// on dit que cette URL est = a orderId
 
-    const idcommande = document.getElementById("orderId");
-    idcommande.innerText = localStorage.getItem("orderId"); // main get #orderId, et affiche l'orderId de la commande du client
-    console.log(localStorage.getItem("orderId"))
-    localStorage.clear(); // clear le LS
-}
+const idcommande = document.querySelector("#orderId");
 
-main();
+
+idcommande.textContent = orderId;
+  
+localStorage.clear();
+ 
