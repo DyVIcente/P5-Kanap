@@ -9,6 +9,7 @@ const idcommande = document.querySelector("#orderId");
 
 
 idcommande.textContent = orderId;
-  
+// Je change le texteContent par orderID
 localStorage.clear();
+//et je clear le LS
  
