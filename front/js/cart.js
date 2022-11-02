@@ -103,39 +103,48 @@ async function displayCart() {
             supprimerItem.textContent = "Supprimer";
 
             // calcul prix total  !
+            async function prixTotal(){
             let lenghtItem = productsLS.length;
             totalPrix = 0;
 
             for (let i = 0; i < lenghtItem; i++) {
                 const product = await getArticle(productsLS[produit]._id);
                 totalPrix += parseInt(productsLS[i].quantity) * product.price;
+                console.log(totalPrix);
             }
 
 
             let quantiteTotalPrix = document.getElementById("totalPrice");
             quantiteTotalPrix.textContent = totalPrix;
-
+        }
 
 
 
             // modif quantité   !
-            function modifyProduct() {
+          async  function modifyProduct() {
                 let quantiteDeBase = document.querySelectorAll(".itemQuantity");
 
                 for (let i = 0; i < quantiteDeBase.length; i++) {
-
+                    
 
                     quantiteDeBase[i].addEventListener("change", function (event) {
                         event.preventDefault();
 
-                        productsLS[i].quantity = quantiteDeBase[i].value;
+                        let newQuantitedeBase = quantiteDeBase[i].value;
+                        const newLS = {
 
-                        localStorage.setItem("produit", JSON.stringify(productsLS));
-
-                        // refresh rapide
-                        location.reload();
-
-
+                            _id: productsLS[i]._id,
+                            imageUrl: productsLS[i].imageUrl,
+                            altTxt: productsLS[i].altTxt,
+                            name: productsLS[i].name,
+                            color: productsLS[i].color,
+                            quantity: newQuantitedeBase,
+                        };
+                        productsLS[i] = newLS;
+                        localStorage.setItem('produit', JSON.stringify(productsLS));
+                        
+                        quantiteTotal();
+                        prixTotal();
                     })
                 }
             }
