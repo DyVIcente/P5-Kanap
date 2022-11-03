@@ -103,11 +103,14 @@ async function displayCart() {
             supprimerItem.textContent = "Supprimer";
 
            
+        }
 
+
+    }
 
 
             // modif quantité   !
-          async  function modifyProduct() {
+           function modifyProduct() {
                 let quantiteDeBase = document.querySelectorAll(".itemQuantity");
 
                 for (let i = 0; i < quantiteDeBase.length; i++) {
@@ -116,30 +119,27 @@ async function displayCart() {
                     quantiteDeBase[i].addEventListener("change", function (event) {
                         event.preventDefault();
 
-                        let newQuantitedeBase = quantiteDeBase[i].value;
-                        const newLS = {
+                        let newQuantitedeBase = quantiteDeBase[i].value; // on selectionne une nouvelle quantité
+                        
+                        const newLS = {      //on fait un nouveau ls avec la nouvelle quantité
 
                             _id: productsLS[i]._id,
                             imageUrl: productsLS[i].imageUrl,
                             altTxt: productsLS[i].altTxt,
                             name: productsLS[i].name,
                             color: productsLS[i].color,
-                            
                             quantity: newQuantitedeBase,
                         };
-                        productsLS[i] = newLS;
+                        productsLS[i] = newLS; // on actualise le ls avec les nouvelles données
                         localStorage.setItem('produit', JSON.stringify(productsLS));
                         
-                        quantiteTotal();
+                        quantiteTotal(); // on appelle quantite et prix total !
                         prixTotal();
                     })
                 }
             }
             modifyProduct();
-        }
-
-
-    }
+       
 
     // appel a l'api pour les produits par rapport a leurs id
     async function getArticle(productId) {
@@ -167,21 +167,26 @@ async function displayCart() {
     //*********** */ quantité total  des produits 
  // calcul prix total  !
  async function prixTotal(){
-        
-    totalPrix = 0;
 
-    for (i = 0; i < productsLS.length; i++) {
-        const article = await getArticle(productsLS[i]._id);
+        const calcul = [];
+    
 
-        totalPrix += parseInt(productsLS[i].quantity * article.price);
-        console.log(productsLS[i].quantity);
-        console.log(article.price);
-        console.log(totalPrix);
+    for ( j = 0; j < productsLS.length; j++) {
+
+        const article = await getArticle(productsLS[j]._id);
+
+        const totalPrix = productsLS[j].quantity * article.price;
+        calcul.push(totalPrix)
+
+        // reduce permet de garder les result de l'opération, elle fonctionne comme une boucle
+        const reduce = (previousValue, currentValue) => previousValue + currentValue;
+        total = calcul.reduce(reduce);
+
     }
 
 
-    let quantiteTotalPrix = document.getElementById("totalPrice");
-    quantiteTotalPrix.textContent = totalPrix;
+    const quantiteTotalPrix = document.getElementById("totalPrice");
+    quantiteTotalPrix.textContent = total;
 }
 prixTotal();
 
