@@ -1,13 +1,13 @@
-# <p aling="center"> Kanap - Projet 5 Formation OC</p>
+# <p align="center"> :couch_and_lamp: Kanap - Projet 5 Formation OC</p>
 
-<p aling="center">➡️Projet 5 - Construisez une site e-commerce en JavaScript</p>
+<p align="center">➡️Projet 5 - Construisez une site e-commerce en JavaScript</p>
 
-## Le projet:
+## <p align="center">🛠️ Le projet:</p>
 -Unifier les travaux déjà réalisés par l’équipe en intégrant dynamiquement les éléments de l’API dans les différentes pages web avec JavaScript. Le code du front-end et de l’API est disponible sur un repo fourni.
 -Mettre en place un plan de test d'acceptation. ( Présenté lors du PowerPoint )
 
 
-## Informations complémentaires: 
+## <p align="center">⚙️ Informations complémentaires: </p>
 
 ### La page d'accueil:
 -Cette page présente l’ensemble des produits retournés par l’API.
@@ -44,6 +44,7 @@ des produits achetés.
 
 
 
+<img src="https://user-images.githubusercontent.com/95346160/218700846-4e646d3b-c767-46d3-beaa-5390e4559fc6.png" alt="kanap_image" />
 
 
 
@@ -52,8 +53,7 @@ des produits achetés.
 
 
 
-
-## Installation: 
+## <p align="center">✔️ Installation: </p>
 
 ### Back end Prerequisites ###
 
