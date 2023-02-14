@@ -1,6 +1,59 @@
-# Kanap #
+# <p aling="center"> Kanap - Projet 5 Formation OC</p>
 
-This is the front end and back end server for Project 5 of the Web Developer path.
+<p aling="center">➡️Projet 5 - Construisez une site e-commerce en JavaScript</p>
+
+## Le projet:
+-Unifier les travaux déjà réalisés par l’équipe en intégrant dynamiquement les éléments de l’API dans les différentes pages web avec JavaScript. Le code du front-end et de l’API est disponible sur un repo fourni.
+-Mettre en place un plan de test d'acceptation. ( Présenté lors du PowerPoint )
+
+
+## Informations complémentaires: 
+
+### La page d'accueil:
+-Cette page présente l’ensemble des produits retournés par l’API.
+-En cliquant sur le produit, l’utilisateur sera redirigé sur la page du produit pour consulter
+celui-ci plus en détail.
+
+### La page produit:
+-Cette page présente un seul produit ; elle aura un menu déroulant permettant à l'utilisateur
+de choisir une option de personnalisation, ainsi qu’un input pour saisir la quantité. Ces
+éléments doivent être pris en compte dans le panier.
+
+### La page panier:
+-Sur cette page, l’utilisateur va pouvoir modifier la quantité d’un produit de son panier ; à ce
+moment, le total du panier devra bien se mettre à jour.
+-L’utilisateur aura aussi la possibilité de supprimer un produit de son panier, le produit devra
+donc disparaître de la page.
+-Les inputs des utilisateurs doivent être analysés et validés pour vérifier le format et le type
+de données avant l’envoi à l’API. En cas de problème de saisie, un message d’erreur devra être affiché en dessous du champ
+correspondant.
+-Ne pas stocker le prix des articles en local.
+
+### La page confirmation:
+-Sur cette page, l'utilisateur doit voir s’afficher son numéro de commande. Il faudra veiller à
+ce que ce numéro ne soit stocké nulle part.
+
+### Pour l'API:
+-Des promesses devront être utilisées pour éviter les callbacks. Il est
+possible d’utiliser des solutions alternatives, comme fetch, celle-ci englobant la promesse.
+L’API n’est actuellement que dans sa première version. La requête post qu’il faudra formuler
+pour passer une commande ne prend pas encore en considération la quantité ni la couleur
+des produits achetés.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Installation: 
 
 ### Back end Prerequisites ###
 
